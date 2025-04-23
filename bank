@@ -1,0 +1,203 @@
+IdbiSign.html
+File
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      overflow-x: hidden;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      background: #ffffffcc;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeInDown 1s ease;
+    }
+    header h1 {
+      color: #0d47a1;
+      font-size: 1.8rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #0d47a1;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #1565c0;
+      transform: scale(1.05);
+    }
+    .container {
+      padding-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5faff;
+    }
+    .form-box {
+      width: 350px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: 0.5s;
+    }
+    .form-box h2 {
+      text-align: center;
+      color: #0d47a1;
+      margin-bottom: 25px;
+    }
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #bbb;
+    }
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      background: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .form-box button:hover {
+      background: #1565c0;
+    }
+    .hidden {
+      display: none;
+    }
+    section {
+      padding: 80px 40px;
+      background: #ffffff;
+    }
+    section:nth-child(even) {
+      background: #e3f2fd;
+    }
+    section h2 {
+      margin-bottom: 15px;
+      color: #0d47a1;
+    }
+    @keyframes fadeInDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Secure Bank</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#invest">Invest</a></li>
+        <li><a href="#branch">Branch</a></li>
+        <li><a href="#loan">Loan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="form-box" id="signupBox">
+      <h2>Sign Up</h2>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="tel" id="signupPhone" placeholder="Phone Number" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signupUser()">Sign Up</button>
+    </div>
+
+    <div class="form-box hidden" id="loginBox">
+      <h2>Login</h2>
+      <input type="text" id="loginEmailPhone" placeholder="Email or Phone" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="loginUser()">Login</button>
+    </div>
+  </div>
+
+  <div id="homePage" class="hidden">
+    <section id="home">
+      <h2>Welcome to Secure Bank</h2>
+      <p>Your trusted partner in banking and investment.</p>
+    </section>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>We are a modern digital bank with customer-centric services.</p>
+    </section>
+    <section id="services">
+      <h2>Our Services</h2>
+      <p>We offer savings, insurance, digital banking, and more.</p>
+    </section>
+    <section id="invest">
+      <h2>Investments</h2>
+      <p>Grow your wealth with our secure investment plans.</p>
+    </section>
+    <section id="branch">
+      <h2>Branch Locator</h2>
+      <p>Find a branch near you quickly and easily.</p>
+    </section>
+    <section id="loan">
+      <h2>Loans</h2>
+      <p>We provide home, personal, car, and education loans at low interest rates.</p>
+    </section>
+  </div>
+
+  <script>
+    let storedUser = {};
+
+    function signupUser() {
+      const email = document.getElementById("signupEmail").value;
+      const phone = document.getElementById("signupPhone").value;
+      const password = document.getElementById("signupPassword").value;
+      if (email && phone && password) {
+        storedUser = { email, phone, password };
+        document.getElementById("signupBox").classList.add("hidden");
+        document.getElementById("loginBox").classList.remove("hidden");
+        alert("Signup successful. Please login.");
+      } else {
+        alert("Please fill all the fields.");
+      }
+    }
+
+    function loginUser() {
+      const loginId = document.getElementById("loginEmailPhone").value;
+      const password = document.getElementById("loginPassword").value;
+
+      if ((loginId === storedUser.email || loginId === storedUser.phone) && password === storedUser.password) {
+        document.querySelector(".container").classList.add("hidden");
+        document.getElementById("homePage").classList.remove("hidden");
+      } else {
+        alert("Invalid login credentials.");
+      }
+    }
+  </script>
+</body>
+</html>

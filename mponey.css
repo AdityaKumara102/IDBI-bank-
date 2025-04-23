@@ -1,0 +1,469 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --primary-color: #0a3d62; /* Deeper Blue */
+    --secondary-color: #1e6a9e; /* Brighter Blue */
+    --accent-color: #3c91e6; /* Lighter Accent Blue */
+    --text-color: #34495e; /* Dark Grey-Blue */
+    --text-light: #5f7a90;
+    --bg-color: #f8f9fa; /* Very Light Grey */
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0; /* Lighter border */
+    --success-color: #27ae60;
+    --error-color: #c0392b;
+    --shadow-light: rgba(0, 0, 0, 0.06);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --font-family: 'Poppins', sans-serif;
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.7; /* Slightly increased line height */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+
+    /* Subtle background gradient for depth */
+    background-image: linear-gradient(to bottom, #ffffff, var(--bg-color) 200px);
+}
+
+/* --- Header --- */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo h1 a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700; /* Bolder */
+    font-size: 2rem; /* Larger */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle text shadow */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem; /* Wider gap */
+}
+
+nav ul li a {
+    color: rgba(255, 255, 255, 0.9); /* Slightly transparent */
+    text-decoration: none;
+    font-weight: 600; /* Semi-bold */
+    padding: 0.5rem 0.2rem; /* Padding for larger clickable area */
+    position: relative; /* For pseudo-element underline */
+    transition: color var(--transition-speed) ease;
+}
+
+nav ul li a::after { /* Underline effect */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: width var(--transition-speed) ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    color: white;
+}
+
+nav ul li a:hover::after,
+nav ul li a:focus::after {
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-size: 0.9rem;
+    min-width: 180px;
+    border-right: none;
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+    color: white;
+    transition: background-color var(--transition-speed) ease;
+}
+#search::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+#search:focus {
+     outline: none;
+     background-color: rgba(255, 255, 255, 0.2);
+     box-shadow: inset 0 0 0 2px var(--accent-color); /* Inner focus ring */
+}
+
+.search-container button {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--secondary-color);
+    background: linear-gradient(to right, var(--secondary-color), var(--accent-color)); /* Gradient button */
+    color: white;
+    cursor: pointer;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    font-size: 1rem;
+    transition: background var(--transition-speed) ease, transform 0.1s ease;
+    border-left: none; /* Ensure seamless connection */
+}
+
+.search-container button:hover {
+    background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+    transform: scale(1.05); /* Slight scale on hover */
+}
+.search-container button:active {
+    transform: scale(1); /* Press effect */
+}
+
+
+/* --- Main Container & Cards --- */
+.container {
+    width: 90%;
+    max-width: 950px; /* Slightly wider */
+    margin: 3rem auto; /* More vertical space */
+    flex-grow: 1;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 2.5rem; /* More padding */
+    margin-bottom: 2.5rem; /* More space between cards */
+    border-radius: var(--border-radius);
+    /* Softer, deeper shadow */
+    box-shadow: 0 5px 15px var(--shadow-light), 0 15px 35px var(--shadow-medium);
+    border: 1px solid var(--border-color);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    position: relative; /* Needed for potential pseudo-elements */
+    overflow: hidden; /* Clip potential overflow effects */
+    scroll-margin-top: 100px; /* Adjust scroll target point */
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.01); /* Lift and slightly scale */
+    box-shadow: 0 8px 20px var(--shadow-light), 0 20px 45px var(--shadow-medium); /* Enhance shadow on hover */
+}
+
+/* Card Entrance Animation Setup */
+.animated-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animated-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700; /* Bolder headings */
+    font-size: 1.8rem; /* Larger headings */
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 0.6rem;
+    display: inline-block;
+}
+
+p {
+    margin-bottom: 1.2rem;
+    color: var(--text-light);
+}
+p strong {
+    color: var(--text-color);
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 0.9rem 2rem; /* Larger buttons */
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition-speed) ease; /* Smooth transition for all properties */
+    text-align: center;
+    letter-spacing: 0.5px; /* Subtle spacing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Button shadow */
+    position: relative;
+    overflow: hidden; /* For ripple/shine effect */
+    z-index: 1;
+}
+
+/* Optional: Subtle shine effect on hover */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-speed) ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+
+.btn-primary {
+    background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+    transform: translateY(-3px) scale(1.03); /* Lift more */
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15); /* Increase shadow */
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(1); /* Press effect */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn-secondary {
+    background-color: #f1f3f5; /* Lighter grey */
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef; /* Slightly darker grey */
+    border-color: #ced4da;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-secondary:active {
+    transform: translateY(-1px) scale(1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cta-buttons {
+    margin-top: 2rem; /* More space above buttons */
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 1.2rem;
+}
+
+/* --- Forms --- */
+.form-group {
+    margin-bottom: 1.8rem; /* More space between fields */
+    position: relative; /* For potential icon placement */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: var(--primary-color); /* Label color matches primary */
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="search"] {
+    width: 100%;
+    padding: 1rem; /* More padding */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: var(--font-family);
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    background-color: #fdfdfd; /* Slightly off-white input background */
+}
+/* Input focus style */
+input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(30, 106, 158, 0.15), 0 1px 3px rgba(0,0,0,0.05) inset; /* Subtle inner shadow + outer glow */
+}
+
+/* Styling for HTML5 validation */
+input:invalid:not(:placeholder-shown) { /* Style only after user interaction */
+  border-color: var(--error-color);
+}
+input:invalid:not(:placeholder-shown):focus {
+  box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.15);
+}
+
+
+form button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem; /* Increased space above submit */
+    padding: 1rem; /* Match input padding */
+}
+
+.form-link, .form-switch {
+    text-align: center;
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+}
+
+.form-link a, .form-switch a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+}
+
+.form-link a:hover, .form-switch a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+/* --- Offers Section --- */
+#offers ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
+}
+
+#offers li {
+    margin-bottom: 1rem;
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: 0.8rem; /* Space between icon and text */
+    color: var(--text-light);
+}
+#offers li i.icon { /* Basic styling for icons */
+    font-style: normal; /* Remove italics if using <i> */
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    min-width: 25px; /* Ensure alignment */
+    text-align: center;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem; /* More padding */
+    background: #e9ecef; /* Footer background */
+    color: var(--text-light);
+    margin-top: auto;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+footer p {
+    margin-bottom: 0.7rem;
+}
+footer p:last-child {
+    margin-bottom: 0;
+}
+
+footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+    margin: 0 0.5rem; /* Space between links */
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center; /* Center items */
+        gap: 1rem;
+    }
+
+    nav {
+        margin-top: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    nav ul {
+        justify-content: center; /* Center nav items */
+        gap: 1rem; /* Adjust gap */
+        flex-wrap: wrap; /* Allow nav items to wrap */
+    }
+     nav ul li a::after { /* Hide underline effect on mobile if too cluttered */
+        display: none;
+    }
+
+    .search-container {
+        margin-top: 0.5rem;
+        width: 90%; /* Adjust width */
+    }
+
+    .container {
+        width: 95%;
+        margin: 2rem auto;
+    }
+
+    .card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .card:hover { /* Reduce hover effect on mobile */
+        transform: translateY(-4px) scale(1.005);
+    }
+
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .cta-buttons .btn {
+        width: 100%;
+    }
+
+    .btn { padding: 0.8rem 1.5rem; }
+    form button[type="submit"] { padding: 0.9rem; }
+    input { padding: 0.9rem; }
+}

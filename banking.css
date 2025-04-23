@@ -1,0 +1,798 @@
+/* --- banking.css --- */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* --- Basic Reset & Font Setup --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling for #links */
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #eef1f5; /* Lighter, cleaner background */
+    /* Subtle background pattern */
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23dce3ec' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    color: #495057; /* Softer dark text */
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* --- Variables --- */
+:root {
+    --primary-color: #0d6efd; /* Bootstrap Primary Blue */
+    --secondary-color: #6c757d; /* Bootstrap Secondary Grey */
+    --success-color: #198754; /* Bootstrap Success Green */
+    --danger-color: #dc3545; /* Bootstrap Danger Red */
+    --warning-color: #ffc107; /* Bootstrap Warning Yellow */
+    --info-color: #0dcaf0; /* Bootstrap Info Cyan */
+    --light-color: #f8f9fa; /* Bootstrap Light */
+    --dark-color: #212529; /* Bootstrap Dark */
+    --border-radius: 6px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+    --transition-speed: 0.3s ease;
+}
+
+/* --- Utility Classes --- */
+.text-center { text-align: center; }
+.container {
+    max-inline-size: 1140px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: 15px;
+    padding-inline-end: 15px;
+}
+.sr-only { /* For screen readers only */
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+.margin-block-end { margin-block-end: 1rem; } /* Utility margin */
+
+/* --- Alert Styles (for Flash Messages) --- */
+.alert {
+    padding: 1rem 1rem;
+    margin-block-end: 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    position: relative; /* For potential close buttons */
+    font-size: 0.95em;
+}
+.alert-heading {
+    color: inherit;
+}
+.alert-link {
+    font-weight: 700;
+}
+.alert-dismissible .btn-close {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    z-index: 2;
+    padding: 1.25rem 1rem;
+}
+.alert-primary {
+    color: #084298;
+    background-color: #cfe2ff;
+    border-color: #b6d4fe;
+}
+.alert-secondary {
+    color: #41464b;
+    background-color: #e2e3e5;
+    border-color: #d3d6d8;
+}
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
+.alert-light {
+    color: #636464;
+    background-color: #fefefe;
+    border-color: #fdfdfe;
+}
+.alert-dark {
+    color: #141619;
+    background-color: #d3d3d4;
+    border-color: #bcbebf;
+}
+
+
+/* --- Header & Navigation --- */
+header {
+    background: linear-gradient(90deg, rgba(13,110,253,1) 0%, rgba(0,168,232,1) 100%);
+    color: white;
+    padding: 0.8em 0;
+    position: sticky; /* Keep nav visible */
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 100%;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-inline-size: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Spacing between items */
+}
+.nav-right span.welcome-message { /* Style for welcome text */
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    margin-inline-end: 10px;
+}
+
+.logo-link h1 {
+    color: white;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    text-decoration: none; /* Ensure logo link isn't underlined */
+}
+.logo-link:hover h1 { /* Prevent color change on hover if needed */
+    color: white;
+}
+.logo-link i { /* Style icon within logo */
+    margin-inline-end: 8px;
+    font-size: 0.9em; /* Slightly smaller icon */
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 25px; /* Spacing between menu items */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: color var(--transition-speed);
+}
+
+.nav-menu a::after { /* Underline effect */
+    content: '';
+    position: absolute;
+    inline-size: 0;
+    block-size: 2px;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    background-color: white;
+    transition: width var(--transition-speed);
+}
+
+.nav-menu a:hover {
+    color: white;
+}
+
+.nav-menu a:hover::after {
+    inline-size: 100%;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--border-radius);
+    padding: 3px 5px;
+}
+
+.search-form input[type="search"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 5px 8px;
+    font-size: 0.9em;
+    inline-size: 150px; /* Adjust as needed */
+}
+.search-form input[type="search"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-form button {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1em; /* Match icon size */
+}
+
+/* User Actions Buttons */
+.user-actions a.button {
+    font-size: 0.9em;
+    padding: 0.5em 1.2em;
+    margin-inline-start: 5px;
+    text-decoration: none; /* Ensure buttons aren't underlined */
+}
+
+.button-outline {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
+}
+.button-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: white;
+}
+
+
+/* --- Main Content Area --- */
+main {
+    flex-grow: 1;
+    padding-block-start: 30px; /* Space below fixed header */
+    padding-block-end: 50px;
+}
+
+section {
+    padding: 60px 0; /* Vertical padding for sections */
+    overflow: hidden; /* Contain animations */
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center center/cover no-repeat; /* Replace with a relevant banking BG */
+    color: white;
+    padding: 120px 0;
+    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    animation: fadeInScale 1s ease-out; /* Entry animation */
+}
+
+.hero-section h2 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-block-end: 0.5em;
+    color: white; /* Override default h2 color */
+}
+
+.hero-section p {
+    font-size: 1.3em;
+    margin-block-end: 1.5em;
+    max-inline-size: 700px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    color: rgba(255, 255, 255, 0.9); /* Override default p color */
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white !important; /* Ensure text color is white, override link defaults */
+    border: none;
+    padding: 0.8em 1.8em;
+    font-size: 1em;
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+    text-decoration: none !important; /* Important to override link defaults */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    vertical-align: middle; /* Align with text/icons */
+}
+.button:hover {
+    background-color: #0b5ed7; /* Darker primary blue */
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
+}
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.button-success { background-color: var(--success-color); }
+.button-success:hover { background-color: #157347; }
+
+.button-large {
+    font-size: 1.1em;
+    padding: 1em 2.5em;
+}
+
+/* Features/Services Section */
+.features-section h3, .about-section h3, .contact-section h3 {
+    text-align: center;
+    font-size: 2.2em;
+    margin-block-end: 1.5em;
+    color: var(--dark-color);
+    position: relative;
+    padding-block-end: 10px;
+}
+.features-section h3::after, .about-section h3::after, .contact-section h3::after { /* Underline for headings */
+    content: '';
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    inline-size: 80px;
+    block-size: 3px;
+    background-color: var(--primary-color);
+}
+
+.features-grid, .services-grid { /* Renamed for consistency */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    margin-block-start: 30px;
+}
+
+.feature-card, .service-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    border-block-start: 4px solid var(--info-color); /* Accent border */
+}
+
+.feature-card:hover, .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.feature-card i, .service-card i { /* Icon styling */
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-block-end: 15px;
+    display: block; /* Make icon block for centering */
+}
+
+.feature-card h4, .service-card h4 {
+    font-size: 1.3em;
+    margin-block-end: 10px;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.feature-card p, .service-card p {
+    font-size: 0.95em;
+    margin-block-end: 15px;
+    color: var(--secondary-color);
+}
+
+a.learn-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-speed);
+}
+a.learn-more:hover {
+    color: #0a58ca;
+}
+
+/* About Section */
+.about-section img.about-image {
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--border-radius);
+    margin-block-start: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+/* Contact Section */
+.contact-section p {
+    font-size: 1.1em;
+    margin-block-end: 15px;
+}
+.contact-section i {
+    color: var(--primary-color);
+    margin-inline-end: 10px;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--dark-color);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 30px 0;
+    margin-block-start: auto; /* Pushes footer to bottom */
+}
+
+.footer-content {
+    max-inline-size: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.footer-links {
+    margin-block-end: 15px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color var(--transition-speed);
+}
+.footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.social-media {
+    margin-block-end: 15px;
+}
+.social-media a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.4em;
+    margin: 0 8px;
+    transition: color var(--transition-speed);
+}
+.social-media a:hover {
+    color: var(--primary-color);
+}
+
+footer p {
+    font-size: 0.9em;
+    margin: 0;
+}
+
+
+/* --- Login & Signup Page Specific Styles --- */
+.auth-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purple/Blue Gradient */
+    /* Or use a 3D-like background image */
+    /* background: url('/path/to/3d-background.jpg') center center/cover no-repeat; */
+    min-block-size: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-page .auth-container {
+    background: rgba(255, 255, 255, 0.98); /* Slightly transparent white */
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-inline-size: 450px;
+    inline-size: 100%;
+    text-align: center;
+    /* Optional: backdrop-filter for glassmorphism */
+    /* -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); */
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Pop-in animation */
+}
+
+.auth-page .auth-logo {
+    margin-block-end: 25px;
+}
+.auth-page .auth-logo h1 { /* Style logo/title */
+    color: var(--primary-color);
+    font-size: 2em;
+    display: flex; /* Align icon and text */
+    align-items: center;
+    justify-content: center;
+}
+.auth-page .auth-logo i {
+    margin-inline-end: 10px;
+    font-size: 0.9em;
+}
+
+.auth-page form h2 {
+    color: var(--dark-color);
+    margin-block-end: 1.5em;
+    font-size: 1.8em;
+}
+
+.auth-page form .input-group {
+    margin-block-end: 1.5em;
+    text-align: start; /* Align labels start for logical direction */
+}
+
+.auth-page form label {
+    display: block;
+    margin-block-end: 0.5rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.auth-page form input { /* Specific input styling for auth pages */
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius);
+    padding: 12px 15px; /* Larger padding */
+    inline-size: 100%;
+    font-size: 1em;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    color: var(--dark-color);
+}
+.auth-page form input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+.auth-page form button {
+    inline-size: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    margin-block-start: 10px;
+}
+
+.auth-page .auth-links {
+    margin-block-start: 20px;
+    font-size: 0.9em;
+}
+.auth-page .auth-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.auth-page .auth-links a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- Dashboard Specific Styles --- */
+.dashboard-main {
+    padding-block-start: 20px; /* Adjust main padding for dashboard */
+}
+.dashboard-main h2 {
+    text-align: center;
+    color: var(--dark-color);
+    margin-block-end: 1.5rem;
+}
+
+.account-summary {
+    background-color: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-block-end: 30px;
+    text-align: center;
+    border-inline-start: 5px solid var(--primary-color);
+}
+.account-summary p {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+    color: var(--secondary-color);
+}
+.account-summary strong {
+    color: var(--dark-color);
+}
+.account-summary .current-balance {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--success-color);
+    display: block; /* Put balance on its own line */
+    margin-block-start: 5px;
+}
+
+.dashboard-actions {
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-block-end: 30px;
+}
+.dashboard-actions h3 {
+    color: var(--primary-color);
+    margin-block-end: 1.5rem;
+    border-block-end: 2px solid #eee;
+    padding-block-end: 0.5rem;
+}
+
+.transfer-form .form-group {
+    margin-block-end: 1.5rem;
+}
+.transfer-form label {
+    display: block;
+    margin-block-end: 0.5rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+.transfer-form .input-field { /* Use a specific class for form fields */
+    inline-size: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+}
+.transfer-form .input-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+    outline: none;
+}
+.transfer-form button {
+    /* Use existing button styles */
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+/* Dashboard Transaction History */
+.transaction-history {
+    margin-block-start: 30px;
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.transaction-history h3 {
+     color: var(--primary-color);
+    margin-block-end: 1.5rem;
+    border-block-end: 2px solid #eee;
+    padding-block-end: 0.5rem;
+}
+.transaction-history table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    margin-block-start: 1rem;
+}
+.transaction-history th, .transaction-history td {
+    text-align: start;
+    padding: 12px 15px;
+    border-block-end: 1px solid #eee;
+}
+.transaction-history th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+.transaction-history td {
+    font-size: 0.95em;
+    color: var(--secondary-color);
+}
+.transaction-history .amount-in {
+    color: var(--success-color);
+    font-weight: 500;
+}
+.transaction-history .amount-out {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+.transaction-history .trans-type {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.transaction-history .trans-date {
+    font-size: 0.85em;
+    color: #999;
+}
+.transaction-history .no-transactions {
+    text-align: center;
+    padding: 20px;
+    color: var(--secondary-color);
+}
+
+
+/* --- Animations --- */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    /* Consider using a hamburger menu toggle JS for these */
+    /* .nav-menu, .search-form { display: none; } */
+    .nav-right .user-actions { /* Ensure login/signup stay */
+        display: flex;
+    }
+    .hero-section h2 { font-size: 2.5em; }
+    .hero-section p { font-size: 1.1em; }
+    header nav { padding: 0 15px; } /* Reduce padding */
+    .nav-left, .nav-right { gap: 15px; }
+    .nav-menu { gap: 15px; }
+}
+
+@media (max-width: 768px) {
+    /* Simplified nav for mobile - real solution needs JS toggle */
+    header nav {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+        gap: 15px;
+        padding: 10px 15px;
+    }
+     .nav-left { order: 1; } /* Logo first */
+     .nav-right { order: 2; justify-content: center; inline-size: 100%; } /* Center buttons */
+     .nav-menu { order: 3; /* Hide or show via JS */ display: none; flex-direction: column; text-align: center; inline-size: 100%; } /* Example */
+
+    .features-grid, .services-grid { grid-template-columns: 1fr; } /* Stack cards */
+    .auth-page .auth-container { padding: 30px 25px;}
+    .hero-section { padding: 80px 0;}
+    .hero-section h2 { font-size: 2em; }
+    .hero-section p { font-size: 1em; }
+    section { padding: 40px 15px; } /* Reduce section padding */
+    .transaction-history th, .transaction-history td { padding: 8px 10px; font-size: 0.9em; } /* Adjust table padding */
+}
+
+@media (max-width: 480px) {
+    .auth-page .auth-container { padding: 25px 20px; }
+    .auth-page .auth-logo h1 { font-size: 1.6em; }
+    .auth-page form h2 { font-size: 1.5em; }
+    .button { padding: 0.6em 1.2em; font-size: 0.9em;} /* Smaller buttons */
+    .account-summary .current-balance { font-size: 1.5em; }
+    .account-summary p { font-size: 1em; }
+    /* Further adjustments for very small screens */
+}
+/* Add this to your static/css/style.css */
+
+.disabled-action {
+    opacity: 0.6;
+    pointer-events: none; /* Prevent clicks on the card itself */
+}
+
+.disabled-action input,
+.disabled-action button {
+    cursor: not-allowed !important;
+}
+
+.disabled-action .text-muted { /* Style the helper text */
+    margin-top: 1rem;
+    font-style: italic;
+}

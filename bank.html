@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure and Safe  Bank IDBI Bank  - Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <a href="{{ url_for('from flask import Flask, render_template.py') }}">Sign Up</a>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth; /* Enable smooth scrolling for nav links */
+    }
+    body, html {
+      height: 100%;
+      overflow-x: hidden; /* Prevent horizontal scrollbar */
+      line-height: 1.6;
+    }
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1; /* Behind all other content */
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2); /* Softer shadow */
+      backdrop-filter: blur(10px); /* Frosted glass effect */
+      -webkit-backdrop-filter: blur(10px); /* Safari support */
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: #0d47a1; /* Deep blue */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+      font-weight: 600;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px; /* Increased gap */
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #0d47a1;
+      font-weight: 600;
+      padding: 8px 15px; /* Slightly larger padding */
+      border-radius: 8px; /* Smoother radius */
+      transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
+      display: inline-block; /* Needed for transform */
+      box-shadow: 0 0 0 rgba(0,0,0,0.1); /* Start with no shadow */
+    }
+    nav ul li a:hover {
+      background: #0d47a1; /* Blue background on hover */
+      color: white; /* White text on hover */
+      box-shadow: 0 6px 18px rgba(13, 71, 161, 0.4); /* Blueish shadow */
+      transform: translateY(-3px); /* Slight lift effect */
+    }
+    .container {
+      padding-top: 100px; /* Adjust based on header height */
+      min-height: calc(100vh - 100px); /* Ensure it takes significant space */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .form-box {
+      background: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+      padding: 35px 40px; /* More padding */
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      width: 380px; /* Slightly wider */
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .form-box h2 {
+      margin-bottom: 25px;
+      color: #0d47a1;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .form-box input {
+      width: 100%;
+      padding: 12px 15px; /* More padding */
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-box input:focus {
+        outline: none;
+        border-color: #0d47a1;
+        box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+    }
+    .form-box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: linear-gradient(45deg, #1565c0, #0d47a1); /* Gradient background */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600; /* Bold text */
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);
+    }
+    .form-box button:hover {
+      background: linear-gradient(45deg, #0d47a1, #1565c0); /* Reverse gradient on hover */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(13, 71, 161, 0.5);
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* Styles for the main content shown after login */
+    #homePage {
+        padding-top: 80px; /* Space for fixed header */
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    section {
+      padding: 100px 80px; /* More padding */
+      min-height: 70vh; /* Give sections some height */
+      color: white;
+      position: relative; /* Needed for pseudo-element overlay */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; /* Center content horizontally */
+      text-align: center;
+      z-index: 1; /* Ensure content is above ::before */
+    }
+
+    section::before { /* Overlay for better text readability */
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+        backdrop-filter: blur(4px); /* Blur effect on the video behind */
+        -webkit-backdrop-filter: blur(4px);
+        z-index: -1; /* Behind the section content */
+    }
+
+    section h2 {
+      font-size: 2.8rem; /* Larger headings */
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6); /* Stronger text shadow */
+    }
+     section p {
+      font-size: 1.15rem;
+      max-width: 800px; /* Limit paragraph width */
+      line-height: 1.8;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+      margin-bottom: 20px; /* Spacing below paragraphs */
+    }
+
+    /* Specific Section Styling */
+    #home { background: transparent; } /* Let video show through more */
+    #home::before { background: rgba(0, 0, 0, 0.45); } /* Lighter overlay for home */
+
+    /* --- About Section --- */
+    .about-content {
+        display: flex;
+        align-items: center;
+        gap: 40px; /* Space between text and image */
+        max-width: 1000px; /* Max width for the content */
+        text-align: left; /* Align text to left */
+        margin-top: 20px;
+    }
+     @media (max-width: 768px) { /* Stack on smaller screens */
+        .about-content {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+    .about-image {
+        flex-shrink: 0; /* Prevent image from shrinking too much */
+        max-width: 350px; /* Max image width */
+        width: 100%; /* Responsive width */
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+    .about-text {
+        flex-grow: 1; /* Allow text to take remaining space */
+    }
+
+    /* --- Invest Section --- */
+    .invest-options {
+        display: flex;
+        justify-content: center;
+        gap: 30px; /* Space between images */
+        margin-top: 30px;
+        flex-wrap: wrap; /* Allow images to wrap on smaller screens */
+    }
+    .invest-options img {
+        max-width: 300px;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        transition: transform 0.3s ease;
+    }
+     .invest-options img:hover {
+         transform: scale(1.05);
+     }
+
+     /* --- Branch Section --- */
+     .branch-list {
+         list-style: none; /* Remove default bullets */
+         padding: 0;
+         margin-top: 20px;
+         max-width: 500px; /* Limit width */
+         text-align: center; /* Center list items */
+     }
+     .branch-list li {
+         background: rgba(255, 255, 255, 0.1); /* Subtle background */
+         padding: 10px 15px;
+         margin-bottom: 10px;
+         border-radius: 5px;
+         font-size: 1.05rem;
+         border-left: 4px solid #1e88e5; /* Accent border */
+     }
+     #branch h3 { /* Style for the subheading */
+        font-size: 1.5rem;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        color: #e3f2fd; /* Lighter blue for subheading */
+     }
+
+    /* --- Loan Section --- */
+    .loan-types {
+        display: grid; /* Use grid for layout */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+        gap: 30px;
+        max-width: 1100px;
+        width: 100%;
+        margin-top: 20px;
+        text-align: left; /* Align text left within grid items */
+    }
+    .loan-item {
+        background: rgba(255, 255, 255, 0.1); /* Subtle background */
+        padding: 25px;
+        border-radius: 8px;
+        border-left: 5px solid #1e88e5; /* Accent border */
+         transition: background 0.3s ease;
+    }
+     .loan-item:hover {
+         background: rgba(255, 255, 255, 0.15);
+     }
+    .loan-item h4 {
+        color: #bbdefb; /* Light blue for loan titles */
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+     .loan-item p {
+         font-size: 1rem;
+         line-height: 1.7;
+         margin-bottom: 0; /* Reset bottom margin for paragraphs inside loan item */
+         max-width: none; /* Override general section paragraph width limit */
+     }
+
+
+    /* --- Scroll Button --- */
+    #scrollBtn {
+      position: fixed;
+      bottom: 30px; /* Position higher */
+      right: 30px;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      padding: 12px 15px; /* Adjust padding */
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1001; /* Above header */
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: none; /* Initially hidden */
+    }
+    #scrollBtn:hover {
+        background-color: #1565c0;
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop class="background-video">
+    <!-- Ensure this video source is reliable -->
+    <source src="https://cdn.coverr.co/videos/coverr-finance-office-6090/1080p.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header>
+    <h1>Secure Bank</h1> <!-- Consider using IDBI Bank name here if desired -->
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#invest">Invest</a></li>
+        <li><a href="#branch">Branch</a></li>
+        <li><a href="#loan">Loan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container" id="authContainer">
+    <!-- Sign Up Form -->
+    <div class="form-box" id="signupBox">
+      <h2>Create Your Account</h2>
+      <input type="email" id="signupEmail" placeholder="Enter your Email" required>
+      <input type="tel" id="signupPhone" placeholder="Enter your Phone Number" required pattern="[0-9]{10,}" title="Please enter a valid phone number (at least 10 digits)">
+      <input type="password" id="signupPassword" placeholder="Create a Secure Password" required minlength="8">
+      <button onclick="signupUser()">Sign Up</button>
+    </div>
+
+    <!-- Login Form (Initially Hidden) -->
+    <div class="form-box hidden" id="loginBox">
+      <h2>Login to Your Account</h2>
+      <input type="text" id="loginEmailPhone" placeholder="Enter Email or Phone" required>
+      <input type="password" id="loginPassword" placeholder="Enter Password" required>
+      <button onclick="loginUser()">Login</button>
+    </div>
+  </div>
+
+  <!-- Main Page Content (Initially Hidden) -->
+  <div id="homePage" class="hidden">
+    <section id="home">
+      <h2>Welcome to Secure Bank</h2>
+      <p>Experience modern, safe, and smart banking solutions tailored for you. Your financial future starts here.</p>
+    </section>
+
+    <section id="about">
+      <h2>About IDBI Bank</h2>
+      <div class="about-content">
+          <div class="about-text">
+              <p>IDBI Bank, with its rich legacy, stands as a pillar of trust and reliability in the Indian banking sector. We are committed to providing comprehensive financial solutions, blending traditional banking values with cutting-edge digital innovation.</p>
+              <p>Our focus remains steadfast on customer satisfaction, offering personalized services and secure platforms to meet the diverse needs of individuals and businesses across India.</p>
+          </div>
+          <!-- IMPORTANT: Replace placeholder src with a real image URL -->
+          <img src="https://via.placeholder.com/350x250?text=IDBI+Bank+Building+or+Logo" alt="IDBI Bank Office" class="about-image">
+      </div>
+    </section>
+
+    <section id="services">
+      <h2>Our Services</h2>
+      <p>Explore our wide range of services: Personal & Business Accounts, Seamless Online Transfers, Credit & Debit Cards, Digital Wallets, Bill Payments, Forex, Insurance, and specialized corporate banking solutions.</p>
+    </section>
+
+    <section id="invest">
+      <h2>Investment Opportunities</h2>
+      <p>Grow your wealth with IDBI Bank's diverse investment avenues. Utilize our user-friendly online platforms to explore high-return mutual funds (including SIPs), secure fixed and recurring deposits, direct equity trading, and government bonds. Our expert advisors are here to guide you towards achieving your financial goals.</p>
+      <div class="invest-options">
+          <!-- IMPORTANT: Replace placeholder src with real image URLs -->
+          <img src="https://via.placeholder.com/300x200?text=Online+Trading+Platform" alt="Online Investment Platform">
+          <img src="https://via.placeholder.com/300x200?text=Diverse+Investment+Portfolio" alt="Investment Portfolio Growth">
+      </div>
+    </section>
+    <section id="services">
+      <h2>Our Services</h2>
+      <p>Explore our wide range of services: Personal & Business Accounts, Seamless Online Transfers, Credit & Debit Cards, Digital Wallets, Bill Payments, Forex, Insurance, and specialized corporate banking solutions.</p>
+      
+      <!-- Button to link to another file -->
+      <a href="deposit.html">
+        <button class="link-button">Learn More</button>
+      </a>
+    </section>
+
+    <section id="branch">
+      <h2>Branch & ATM Locator</h2>
+      <p>Find your nearest IDBI Bank branch or ATM using our locator tool. We have a widespread network across India for your convenience.</p>
+       <h3>Example IDBI Branch Locations:</h3>
+      <ul class="branch-list">
+          <li>BKC, Bandra (East), Mumbai, Maharashtra</li>
+          <li>Connaught Place, New Delhi, Delhi</li>
+          <li>Ashram Road, Ahmedabad, Gujarat</li>
+          <li>MG Road, Bengaluru, Karnataka</li>
+          <li>Park Street, Kolkata, West Bengal</li>
+          <li>T. Nagar, Chennai, Tamil Nadu</li>
+      </ul>
+       <p style="margin-top: 20px; font-size: 0.9rem;">(Please use the official IDBI Bank website for the complete and updated branch/ATM list.)</p>
+    </section>
+
+    <section id="loan">
+      <h2>Flexible Loan Options</h2>
+      <p>Achieve your dreams with IDBI Bank's tailored loan products. We offer competitive interest rates, flexible repayment tenures, and a streamlined application process.</p>
+      <div class="loan-types">
+          <div class="loan-item">
+              <h4>Home Loan</h4>
+              <p>Finance your dream home with attractive interest rates, long repayment periods, and options for top-up loans. Simple documentation and quick processing.</p>
+          </div>
+           <div class="loan-item">
+              <h4>Car Loan</h4>
+              <p>Get behind the wheel of your desired car with our flexible car loans. High loan-to-value ratio, easy EMIs, and financing for both new and used cars.</p>
+          </div>
+           <div class="loan-item">
+              <h4>Education Loan</h4>
+              <p>Fund your higher education in India or abroad. Covers tuition fees, living expenses, and other related costs. Tax benefits available under Section 80E.</p>
+          </div>
+           <div class="loan-item">
+              <h4>Personal Loan</h4>
+              <p>Meet your urgent financial needs like weddings, travel, or medical emergencies with our multipurpose personal loans. Minimal paperwork and fast disbursal.</p>
+          </div>
+           <div class="loan-item">
+              <h4>Business Loan</h4>
+              <p>Fuel your business growth with our working capital finance, term loans, and MSME loans. Customized solutions to meet your specific business requirements.</p>
+          </div>
+           <div class="loan-item">
+              <h4>Loan Against Property</h4>
+              <p>Unlock the value of your residential or commercial property to meet significant personal or business expenses. Get high loan amounts at competitive rates.</p>
+          </div>
+      </div>
+       <p style="margin-top: 30px;">Contact our loan experts or visit your nearest branch to discuss your requirements and begin the easy application process.</p>
+    </section>
+  </div>
+
+  <button id="scrollBtn" onclick="scrollToTop()" title="Go to top">↑</button>
+
+  <script>
+    // --- User Data Storage (INSECURE - Demo purposes only!) ---
+    let storedUser = null; // Initialize as null
+
+    // --- DOM Element References ---
+    const signupBox = document.getElementById("signupBox");
+    const loginBox = document.getElementById("loginBox");
+    const authContainer = document.getElementById("authContainer");
+    const homePage = document.getElementById("homePage");
+    const scrollBtn = document.getElementById('scrollBtn');
+
+    // --- Sign Up Function ---
+    function signupUser() {
+      const emailInput = document.getElementById("signupEmail");
+      const phoneInput = document.getElementById("signupPhone");
+      const passwordInput = document.getElementById("signupPassword");
+
+      const email = emailInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const password = passwordInput.value; // Don't trim password
+
+      // Basic Validation
+      if (!email || !phone || !password) {
+        alert("Please fill in all fields.");
+        return;
+      }
+      if (!validateEmail(email)) {
+          alert("Please enter a valid email address.");
+          return;
+      }
+       if (password.length < 8) {
+          alert("Password must be at least 8 characters long.");
+          return;
+      }
+       if (!/^\d{10,}$/.test(phone)) {
+           alert("Please enter a valid phone number (at least 10 digits, numbers only).");
+           return;
+       }
+
+
+      // Store user data (again, insecure for real apps)
+      storedUser = { email, phone, password };
+      console.log("User Signed Up:", storedUser); // For debugging
+
+      // --- Visual Transition ---
+      signupBox.classList.add("hidden");
+      loginBox.classList.remove("hidden");
+
+      alert("Signup successful! Please login with your credentials.");
+
+      // Clear signup form fields
+      emailInput.value = "";
+      phoneInput.value = "";
+      passwordInput.value = "";
+    }
+
+    // --- Login Function ---
+    function loginUser() {
+      const loginIdInput = document.getElementById("loginEmailPhone");
+      const passwordInput = document.getElementById("loginPassword");
+
+      const loginId = loginIdInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!loginId || !password) {
+        alert("Please enter both your identifier (Email/Phone) and password.");
+        return;
+      }
+
+      // Check if a user has signed up
+      if (!storedUser) {
+          alert("No user account found. Please sign up first.");
+          return;
+      }
+
+      // Check credentials
+      const isEmailLogin = loginId === storedUser.email;
+      const isPhoneLogin = loginId === storedUser.phone;
+      const isPasswordCorrect = password === storedUser.password;
+
+      if ((isEmailLogin || isPhoneLogin) && isPasswordCorrect) {
+        console.log("Login Successful"); // For debugging
+
+        // --- Visual Transition ---
+        authContainer.classList.add("hidden"); // Hide the whole form container
+        homePage.classList.remove("hidden");   // Show the main page content
+        // Ensure scroll button logic runs after login potentially shows content
+        checkScrollButtonVisibility();
+
+        // Optionally clear login fields
+        loginIdInput.value = "";
+        passwordInput.value = "";
+
+      } else {
+        alert("Invalid credentials. Please check your Email/Phone and Password.");
+      }
+    }
+
+    // --- Scroll to Top Function ---
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Email Validation Helper ---
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    // --- Function to check and display scroll button ---
+    function checkScrollButtonVisibility() {
+         // Check if homePage is visible before showing scroll button
+        const isHomePageVisible = homePage && !homePage.classList.contains('hidden');
+
+        if (isHomePageVisible && (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150)) {
+            scrollBtn.style.display = "block";
+        } else if (scrollBtn) { // Check if scrollBtn exists before trying to hide it
+            scrollBtn.style.display = "none";
+        }
+    }
+
+
+    // --- Show/Hide Scroll Button based on scroll position ---
+    window.onscroll = checkScrollButtonVisibility;
+
+    // Initial check in case the page loads already scrolled (less likely here, but good practice)
+     window.onload = checkScrollButtonVisibility;
+
+
+  </script>
+  
+  
+</body>
+</html>

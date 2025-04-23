@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDBI Bank - Secure Online Banking Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mponey.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1><a href="#home">IDBI Bank</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#login">Login</a></li>
+                    <li><a href="#signup">Sign Up</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="search-container">
+                <input type="search" id="search" placeholder="Search..." aria-label="Search Site">
+                <button type="button" aria-label="Submit Search">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home" class="card animated-card">
+            <h2>Welcome to IDBI Bank Online</h2>
+            <p>Your trusted partner for secure and convenient banking. Please log in or create an account to manage your finances.</p>
+            <div class="cta-buttons">
+                <a href="#login" class="btn btn-primary">Login Now</a>
+                <a href="#signup" class="btn btn-secondary">Create Account</a>
+            </div>
+        </section>
+
+        <section id="login" class="card animated-card">
+            <h2 id="login-heading">Secure Account Login</h2>
+            <form id="loginForm" action="/login" method="post">
+                <div class="form-group">
+                    <label for="loginEmail">Email or Phone</label>
+                    <input type="text" id="loginEmail" name="loginEmail" placeholder="Enter your email or phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-link"><a href="#forgot-password">Forgot Password?</a></p>
+                <p class="form-switch">Don't have an account? <a href="#signup">Sign up here</a>.</p>
+            </form>
+        </section>
+
+        <section id="signup" class="card animated-card">
+            <h2 id="signup-heading">Create Your Secure Account</h2>
+            <form id="signupForm" action="/signup" method="post">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" name="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" name="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Mobile Number</label>
+                    <input type="tel" id="signupPhone" name="signupPhone" placeholder="Enter your 10-digit mobile number" required pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Create Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Minimum 8 characters" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="initialDeposit">Initial Deposit (₹)</label>
+                    <input type="number" id="initialDeposit" name="initialDeposit" placeholder="Minimum ₹1000" required min="1000" step="100">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up Securely</button>
+                <p class="form-switch">Already have an account? <a href="#login">Login here</a>.</p>
+            </form>
+        </section>
+
+        <section id="offers" class="card animated-card">
+            <h2>Exclusive Bank Offers & Benefits</h2>
+            <ul>
+                <li>📈 High interest rates on Savings Accounts.</li>
+                <li>💳 Exciting cashback rewards on Debit Card spending.</li>
+                <li>💰 Low-interest Loan Rates for new customers.</li>
+                <li>✨ Zero-balance accounts with premium features.</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="card animated-card">
+            <h2>Contact Us</h2>
+            <p>Need help? Reach out to our customer support team.</p>
+            <p><strong>Phone:</strong> <a href="tel:1800XXXXXX">1-800-XXX-XXXX</a></p>
+            <p><strong>Email:</strong> <a href="mailto:support@idbibank.example.com">support@idbibank.example.com</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© <span id="currentYear"></span> IDBI Bank. All rights reserved.</p>
+        <p><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+    </footer>
+</body>
+</html>
